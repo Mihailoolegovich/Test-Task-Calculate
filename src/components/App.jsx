@@ -20,7 +20,7 @@ export const App = () => {
       return;
     }
     setCalculation(baseData[position]);
-  }, [position]);
+  }, [baseData, position]);
 
   function updateCalculate(btnValue) {
     if (
