@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Test-Task-Calculate/static/css/main.cc4c169d.css",
+    "main.js": "/Test-Task-Calculate/static/js/main.3a0d74e5.js",
+    "index.html": "/Test-Task-Calculate/index.html",
+    "main.cc4c169d.css.map": "/Test-Task-Calculate/static/css/main.cc4c169d.css.map",
+    "main.3a0d74e5.js.map": "/Test-Task-Calculate/static/js/main.3a0d74e5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cc4c169d.css",
+    "static/js/main.3a0d74e5.js"
+  ]
+}
