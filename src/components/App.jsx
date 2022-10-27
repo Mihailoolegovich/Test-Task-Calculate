@@ -1,5 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
+import calculateString from 'calculate-string';
 
 const calcSignsBtn = ['+', '-', '*', '/', '.'];
 const calcNumBtn = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
@@ -48,7 +49,7 @@ export const App = () => {
     });
 
     if (!calcSignsBtn.includes(btnValue)) {
-      setOutput(eval(calculation + btnValue).toString());
+      setOutput(calculateString(calculation + btnValue).toString());
     }
   }
 
@@ -61,12 +62,15 @@ export const App = () => {
         break;
       case '=':
         try {
-          eval(calculation);
+          calculateString(calculation);
         } catch (error) {
           alert('Not corect ');
           break;
         }
-        setBaseData(preState => [...preState, eval(calculation).toString()]);
+        setBaseData(preState => [
+          ...preState,
+          calculateString(calculation).toString(),
+        ]);
         break;
 
       default:
