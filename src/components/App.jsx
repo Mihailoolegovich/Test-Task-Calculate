@@ -18,13 +18,13 @@ export const App = () => {
   const [position, setPosition] = useState(0);
   const [baseData, setBaseData] = useState([]);
 
-  const firstRender = useRef(true);
+  // const firstRender = useRef(true);
 
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
+    // if (firstRender.current) {
+    //   firstRender.current = false;
+    //   return;
+    // }
     const localPersonId = sessionStorage.getItem('myPeronId');
     if (!localPersonId) {
       axios
