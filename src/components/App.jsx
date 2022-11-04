@@ -25,12 +25,12 @@ export const App = () => {
       firstRender.current = false;
       return;
     }
-    const localPersonId = localStorage.getItem('myPeronId');
+    const localPersonId = sessionStorage.getItem('myPeronId');
     if (!localPersonId) {
       axios
         .post('/api/calculator')
         .then(response =>
-          localStorage.setItem('myPeronId', response.data.calc._id)
+          sessionStorage.setItem('myPeronId', response.data.calc._id)
         );
       return;
     }
@@ -42,7 +42,7 @@ export const App = () => {
 
   useEffect(() => {
     if (baseData.length > 0) {
-      axios.put(`/api/calculator/${localStorage.getItem('myPeronId')}`, {
+      axios.put(`/api/calculator/${sessionStorage.getItem('myPeronId')}`, {
         value: baseData,
       });
     }
