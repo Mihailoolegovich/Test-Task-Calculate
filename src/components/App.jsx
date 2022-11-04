@@ -3,10 +3,12 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import calculateString from 'calculate-string';
 
+import { useRef } from 'react';
+
 const calcSignsBtn = ['+', '-', '*', '/', '.'];
 const calcNumBtn = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
-// axios.defaults.baseURL = 'http://localhost:3000';
+// axios.defaults.baseURL = 'http://localhost:3001';
 axios.defaults.baseURL = 'https://test-task-calculate.herokuapp.com/';
 
 export const App = () => {
@@ -16,15 +18,31 @@ export const App = () => {
   const [position, setPosition] = useState(0);
   const [baseData, setBaseData] = useState([]);
 
+  const firstRender = useRef(true);
+
   useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    const localPersonId = localStorage.getItem('myPeronId');
+    if (!localPersonId) {
+      axios
+        .post('/api/calculator')
+        .then(response =>
+          localStorage.setItem('myPeronId', response.data.calc._id)
+        );
+      return;
+    }
+
     axios
-      .get('/api/calculator')
-      .then(response => setBaseData(response.data.calc[0].value));
+      .get(`/api/calculator/${localPersonId}`)
+      .then(response => setBaseData(response.data.calc.value));
   }, []);
 
   useEffect(() => {
     if (baseData.length > 0) {
-      axios.put(`/api/calculator/635ac386ebfa214d4dfaff23`, {
+      axios.put(`/api/calculator/${localStorage.getItem('myPeronId')}`, {
         value: baseData,
       });
     }
@@ -57,11 +75,11 @@ export const App = () => {
       setCalculation(btnValue);
       return;
     }
-
-    setBaseData(preState => {
-      let r = preState.slice(0, position + 1);
-      return [...r, calculation + btnValue];
-    });
+    setCalculation(calculation + btnValue);
+    // setBaseData(preState => {
+    //   let r = preState.slice(0, position + 1);
+    //   return [...r, calculation + btnValue];
+    // });
 
     if (!calcSignsBtn.includes(btnValue)) {
       setOutput(calculateString(calculation + btnValue).toString());
@@ -82,6 +100,7 @@ export const App = () => {
           alert('Not corect ');
           break;
         }
+
         setBaseData(preState => [
           ...preState,
           calculateString(calculation).toString(),
