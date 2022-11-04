@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import calculateString from 'calculate-string';
 
-import { useRef } from 'react';
+// import { useRef } from 'react';
 
 const calcSignsBtn = ['+', '-', '*', '/', '.'];
 const calcNumBtn = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
